@@ -24,7 +24,7 @@ for (const f of files) {
   const width = await page.evaluate(() => +document.querySelector('meta[name=render-width]')?.content || 0);
   if (width) await page.setViewportSize({ width, height: 800 });
   await page.evaluate(() => document.fonts.ready);
-  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {}); // CDN이 느려도 멈추지 않게 (폰트는 위에서 fonts.ready 로 기다림)
   const target = await page.$('[data-capture]');
   const png = abs.replace(/\.html?$/i, '.png');
   if (target) await target.screenshot({ path: png });

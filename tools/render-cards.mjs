@@ -128,7 +128,7 @@ for (const d of dirs) {
     writeFileSync(html, slideHtml(s, i, total, post, abs));
     await page.goto(pathToFileURL(html).href);
     await page.evaluate(() => document.fonts.ready);
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {}); // CDN이 느려도 멈추지 않게 (폰트는 위에서 fonts.ready 로 기다림)
     await (await page.$('[data-capture]')).screenshot({ path: join(out, `card-${String(i + 1).padStart(2, '0')}.png`) });
     rmSync(html);
   }
