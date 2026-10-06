@@ -51,4 +51,4 @@ jobs:
             --model ${{ vars.CLAUDE_MODEL || 'claude-opus-5-5' }}
             --max-turns 60
             --allowedTools "Read,Write,Edit,Glob,Grep,Bash(node tools/*),Bash(mv *),Bash(cp *),Bash(mkdir *),Bash(ls *)"
-            --append-system-prompt "이 저장소의 글은 .claude/skills/uncomfortable-ui/SKILL.md 규칙을 따른다. 요청한 부분만 고치고, 이미지를 바꿨으면 다시 렌더링해서 확인한다."
+            --append-system-prompt "이 저장소의 글은 .claude/skills/inau/SKILL.md 규칙을 따른다. 요청한 부분만 고치고, 이미지를 바꿨으면 다시 렌더링해서 확인한다."

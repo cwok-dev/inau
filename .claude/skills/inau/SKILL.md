@@ -1,5 +1,5 @@
 ---
-name: uncomfortable-ui
+name: inau
 description: 이상한나라의UIUX(INAU, 옛 이름 불편한UI) — 휴대폰 앱에서 겪은 불편한 UI/UX 제보(GitHub 이슈의 캡처·영상·불편한 이유)를 받아 문제 분석, 수정 방안, AI 와이어프레임(Before/After)을 만들고 posts/ 아래에 블로그 글로 정리한다. "불편한UI", "UX 제보 처리", "이슈 N번 글로 만들어줘", "와이어프레임 다시 그려줘" 같은 요청에 사용.
 ---
 

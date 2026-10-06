@@ -20,6 +20,6 @@
 3. 시작 버튼 + 텍스트 버튼
 댓글로 번호를 남겨주세요 👇
 
-전체 글 👉 프로필 링크 (https://cwok-dev.github.io/uncomfortable-ui/posts/2026-10-06-gyeonggi-money-login-buttons/)
+전체 글 👉 프로필 링크 (https://cwok-dev.github.io/inau/posts/2026-10-06-gyeonggi-money-login-buttons/)
 
 #이상한나라의UIUX #INAU #UX #UI #서비스기획 #경기지역화폐 #UX라이팅

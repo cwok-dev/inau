@@ -56,7 +56,7 @@ jobs:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ github.token }}
           prompt: |
-            uncomfortable-ui 스킬(.claude/skills/uncomfortable-ui/SKILL.md)을 따라 이슈 #${{ env.N }} 제보를 글로 만들어 주세요.
+            inau 스킬(.claude/skills/inau/SKILL.md)을 따라 이슈 #${{ env.N }} 제보를 글로 만들어 주세요.
             - 입력은 이미 work/issue-${{ env.N }}/manifest.json 에 준비되어 있습니다.
             - posts/ 아래 새 폴더와 work/issue-${{ env.N }}/pr-body.md 를 만들면 끝입니다.
             - git commit / push / PR 생성은 하지 마세요. 다음 단계가 처리합니다.

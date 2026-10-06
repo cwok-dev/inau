@@ -11,7 +11,7 @@ if (!dir) {
   console.error('usage: node tools/publish-instagram.mjs <post-dir-name> [--dry]');
   process.exit(1);
 }
-const SITE = (process.env.SITE_URL || 'https://cwok-dev.github.io/uncomfortable-ui').replace(/\/$/, '');
+const SITE = (process.env.SITE_URL || 'https://cwok-dev.github.io/inau').replace(/\/$/, '');
 const API = `https://graph.instagram.com/${process.env.IG_API_VERSION || 'v23.0'}`;
 const TOKEN = process.env.IG_ACCESS_TOKEN;
 const USER = process.env.IG_USER_ID || 'me';
