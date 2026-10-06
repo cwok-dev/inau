@@ -33,3 +33,9 @@ node tools/fetch-media.mjs <이슈번호>      # gh 로그인 필요
 node tools/render.mjs posts/<글>/src/*.html  # Chrome 필요
 npm run preview
 ```
+
+## 인스타 토큰 자동 갱신
+
+`ig-token.yml`이 매달 1·15일에 Instagram 토큰(60일 만료)을 연장해 `IG_ACCESS_TOKEN`을 교체한다. 실패하면 ntfy로 알림.
+시크릿을 바꾸려면 `GH_SECRETS_PAT`이 필요하다: GitHub → Settings → Developer settings → Fine-grained tokens →
+Repository access `uncomfortable-ui`만, Permissions → **Secrets: Read and write**. 이 PAT도 만료일이 있으니 만료 전에 다시 만든다.

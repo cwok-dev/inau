@@ -22,10 +22,10 @@ jobs:
     env:
       SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
       - run: npm ci
       - name: 카드뉴스 렌더링 (글 수정 반영)
@@ -33,7 +33,7 @@ jobs:
           for f in posts/*/cards.json; do [ -f "$f" ] && node tools/render-cards.mjs "$(dirname "$f")"; done
           exit 0
       - run: node tools/build-site.mjs
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: _site
 
@@ -45,7 +45,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
   # 새 글이 배포되면 인스타 게시 승인 이슈를 만든다 → 댓글 /게시 로 instagram.yml 실행
   ig-queue:
@@ -58,7 +58,7 @@ jobs:
       SITE: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
       BEFORE: ${{ github.event.before }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: 승인 이슈 만들기

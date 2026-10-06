@@ -1,0 +1,56 @@
+name: 점검 (렌더링 스모크 테스트)
+
+# 러너 이미지가 바뀌어도(예: ubuntu-latest → Ubuntu 26) 렌더링이 되는지 미리 확인한다.
+# 예시 글로 와이어프레임·카드뉴스·사이트를 만들어 보고 결과 이미지를 아티팩트로 남긴다.
+on:
+  workflow_dispatch:
+    inputs:
+      runner:
+        description: 러너 라벨
+        default: ubuntu-latest
+  pull_request:
+    paths: ['tools/**', 'kit/**', 'package*.json', '.github/workflows/**']
+  schedule:
+    - cron: '0 0 * * 1'   # 매주 월 09:00 KST
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ${{ inputs.runner || 'ubuntu-latest' }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - name: 환경
+        run: |
+          cat /etc/os-release | head -2
+          node -v
+          (google-chrome --version || chromium --version) 2>&1
+      - run: npm ci
+      - name: 한글 폰트
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-cjk > /dev/null
+      - name: 와이어프레임 렌더링 (예시)
+        run: |
+          d=examples/2026-10-06-sample-coupon-list
+          node tools/render.mjs $d/src/after.html
+          ls -la $d/src/after.png
+      - name: 카드뉴스 렌더링 (예시 + 첫 글)
+        run: |
+          node tools/render-cards.mjs examples/2026-10-06-sample-coupon-list posts/2026-10-06-gyeonggi-money-login-buttons
+          ls posts/2026-10-06-gyeonggi-money-login-buttons/cards
+      - name: 사이트 빌드
+        run: node tools/build-site.mjs
+      - name: 인스타 드라이런 (공개된 카드 확인)
+        run: node tools/publish-instagram.mjs 2026-10-06-gyeonggi-money-login-buttons --dry | head -3
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: smoke-${{ inputs.runner || 'ubuntu-latest' }}
+          path: |
+            examples/2026-10-06-sample-coupon-list/src/after.png
+            posts/2026-10-06-gyeonggi-money-login-buttons/cards/*.png
+          retention-days: 7

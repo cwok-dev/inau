@@ -1,0 +1,46 @@
+name: 인스타 토큰 자동 갱신
+
+# Instagram 장기 토큰은 60일 뒤 만료된다. 매달 1일·15일에 연장해 IG_ACCESS_TOKEN 시크릿을 바꿔 넣는다.
+# 시크릿을 쓰려면 GITHUB_TOKEN으로는 안 되고, 이 저장소의 Secrets 쓰기 권한만 가진
+# fine-grained PAT(시크릿 GH_SECRETS_PAT)가 필요하다.
+on:
+  schedule:
+    - cron: '0 1 1,15 * *'   # 매달 1일·15일 10:00 KST
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 토큰 연장 · 시크릿 교체
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_SECRETS_PAT }}
+          REPO: ${{ github.repository }}
+        run: |
+          [ -n "$IG_ACCESS_TOKEN" ] || { echo "IG_ACCESS_TOKEN 이 없어요"; exit 1; }
+          [ -n "$GH_TOKEN" ] || { echo "GH_SECRETS_PAT 이 없어요 (README 참고)"; exit 1; }
+          res=$(curl -s "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=$IG_ACCESS_TOKEN")
+          new=$(echo "$res" | jq -r '.access_token // empty')
+          if [ -z "$new" ]; then
+            echo "연장 실패: $(echo "$res" | jq -c '.error // .' )"
+            exit 1
+          fi
+          echo "::add-mask::$new"
+          days=$(( $(echo "$res" | jq -r '.expires_in') / 86400 ))
+          gh secret set IG_ACCESS_TOKEN --repo "$REPO" --body "$new"
+          echo "연장 완료 — 앞으로 ${days}일 유효"
+          echo "DAYS=$days" >> "$GITHUB_ENV"
+
+      - name: 실패하면 폰 알림
+        if: failure()
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: |
+          [ -n "$NTFY_TOPIC" ] || exit 0
+          curl -s -H "Title: 인스타 토큰 연장 실패" -H "Priority: 5" -H "Tags: warning" \
+            -H "Click: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            -d "토큰이 만료되기 전에 확인해 주세요 (Meta에서 토큰 재발급 → IG_ACCESS_TOKEN)" "https://ntfy.sh/$NTFY_TOPIC" > /dev/null
