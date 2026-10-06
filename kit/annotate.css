@@ -41,3 +41,8 @@
 .note .n { position: static; flex: none; box-shadow: none; }
 .note b { display: block; margin-bottom: 2px; color: var(--text-strong); }
 .notes .divider { margin: 4px 0; }
+
+/* ── 참고 사례 (다른 앱의 좋은 예) ── */
+.mark.good { border-color: var(--success); }
+.mark.good .n, .n.good-n { background: var(--success); }
+.pane-tag.ref { background: var(--success-weak); color: var(--success); }

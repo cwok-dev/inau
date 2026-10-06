@@ -78,7 +78,7 @@
 | 자리표시 | `.ph`(`.r-16-9` `.r-1-1` `.r-4-3`) `.thumb` `.avatar` `.app-icon` `.skel` |
 | 내비 | `.tabs`(`.scroll`) `.navbar`(`--tabs:N`) |
 | 오버레이 | `.scrim` `.sheet` `.sheet-title` `.dialog` `.toast` `.fab` |
-| 주석 | `.fix` `.bad` (`.pad`) `.n` (`.l`) / `.shot` `.mark`(`.fill`) `.redact` / `.capture` `.board` `.compare` `.pane` `.pane-tag` `.notes` `.note` |
+| 주석 | `.fix` `.bad` (`.pad`) `.n` (`.l` `.bad-n` `.good-n`) · 참고 사례 `.mark.good` `.pane-tag.ref` / `.shot` `.mark`(`.fill`) `.redact` / `.capture` `.board` `.compare` `.pane` `.pane-tag` `.notes` `.note` |
 
 ## 6. 그리는 순서
 
