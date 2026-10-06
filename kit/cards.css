@@ -11,8 +11,8 @@ body { background: #fff; }
 
 /* 머리: 로고 · 쪽수 */
 .cp-head { display: flex; align-items: center; justify-content: space-between; height: 48px; flex: none; }
-.cp-logo svg { height: 40px; width: auto; display: block; }
-.cp-logo { color: var(--text-strong); --logo-accent: #e5484d; }
+.cp-logo svg { height: 48px; width: auto; display: block; }
+.cp-logo { color: var(--text-strong); --logo-accent: #d42a3a; }
 .dark .cp-logo, .blue .cp-logo { color: #fff; }
 .blue .cp-logo { --logo-accent: #fff; }
 .cp-page { font-size: 26px; font-weight: 600; color: var(--text-hint); letter-spacing: .02em; }

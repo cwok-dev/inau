@@ -1,7 +1,5 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="render-width" content="540"><link rel="stylesheet" href="tokens.css"><style>body{margin:0;background:#fff}</style></head><body>
-<!-- 인스타 프로필 사진 (node tools/render.mjs kit/profile.html → kit/profile.png, 1080×1080). 원형으로 잘려도 안전한 여백 -->
-<div data-capture style="width:540px;height:540px;background:var(--logo-accent);display:flex;align-items:center;justify-content:center;color:#fff">
-<div style="width:250px;margin:-14px 0 0 -6px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -16 94 122" role="img" aria-label="INAU">
+<!-- INAU 심볼: 비대칭 하트 + 토끼 귀(오른쪽 귀에 커서 화살표). 색은 currentColor. tools/make-brand.mjs 가 로고에 합친다 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -16 94 122" role="img" aria-label="INAU">
   <defs>
     <path id="inau-ear-l" d="M47.5 47 C 41 40, 29 26, 25 9 C 22.5 -2, 25 -13, 31.5 -12 C 38 -11, 43 2, 46 14 C 48.5 25, 50 36, 49.5 45 Z"/>
     <path id="inau-ear-r" d="M51 45 C 52 32, 57 14, 66 -1 C 71 -9, 79 -11, 80.5 -5 C 82 3, 77 20, 70 31 C 65 39, 59 44, 53 48.5 Z"/>
@@ -21,5 +19,4 @@
     <use href="#inau-ear-l"/>
     <use href="#inau-ear-r" mask="url(#inau-arrow)"/>
   </g>
-</svg></div>
-</div></body></html>
+</svg>

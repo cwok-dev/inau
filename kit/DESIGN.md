@@ -5,7 +5,7 @@
 
 - 진입 CSS: `kit/wire.css` (tokens → components → annotate)
 - 눈으로 보는 카탈로그: `kit/components.png` (원본 `kit/components.html`)
-- 로고: `kit/logo.svg`(이상한나라의UIUX) · `kit/logo-short.svg`(INAU) — 학교안심 마법사(OFL) 아웃라인, 영문은 `--logo-accent`
+- 로고: `kit/symbol.svg`(하트 토끼: 비대칭 하트 + 오른쪽 귀 커서 화살표) + 워드마크(학교안심 마법사, OFL) → `node tools/make-brand.mjs <폰트>` 가 `kit/logo.svg`(이상한나라의UIUX) · `kit/logo-short.svg`(INAU) 생성. 색: 심볼·한글 `--logo-accent` #D42A3A, 영문 잉크(currentColor). 인스타 프로필 `kit/profile.png`
 
 ## 1. 색
 

@@ -36,7 +36,7 @@ const CSS = `
 *{box-sizing:border-box}body{margin:0;word-break:keep-all;background:var(--bg);color:var(--ink);font:17px/1.75 Pretendard,'Noto Sans KR',system-ui,sans-serif;letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
 a{color:inherit}.wrap{max-width:760px;margin:0 auto;padding:0 16px}
 header.site{padding:40px 0 24px;border-bottom:1px solid var(--line);margin-bottom:32px}
-header.site a{text-decoration:none}.logo{display:block;font-size:28px;font-weight:800;--logo-accent:var(--bad)}.logo b{color:var(--bad)}.logo svg{display:block;height:40px;width:auto}
+header.site a{text-decoration:none}.logo{display:block;font-size:28px;font-weight:800;--logo-accent:#d42a3a}.logo b{color:var(--bad)}.logo svg{display:block;height:44px;width:auto;max-width:100%}
 .tagline{font-family:Pretendard,system-ui,sans-serif;font-size:17px;color:var(--ink-2);margin-top:10px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;padding-bottom:64px}
 .card{display:block;text-decoration:none;background:var(--card);border-radius:16px;overflow:hidden}
