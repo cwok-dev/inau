@@ -5,7 +5,7 @@
 
 - 진입 CSS: `kit/wire.css` (tokens → components → annotate)
 - 눈으로 보는 카탈로그: `kit/components.png` (원본 `kit/components.html`)
-- 로고: `kit/symbol.svg`(하트 토끼: 비대칭 하트 + 오른쪽 귀 커서 화살표) + 워드마크(학교안심 마법사, OFL) → `node tools/make-brand.mjs <폰트>` 가 `kit/logo.svg`(이상한나라의UIUX) · `kit/logo-short.svg`(INAU) 생성. 색: 심볼·한글 `--logo-accent` #D42A3A, 영문 잉크(currentColor). 인스타 프로필 `kit/profile.png`
+- 로고: GPT 시안 01 HEART(`kit/brand-src/gpt-logo-sheet.png`)를 그대로 벡터로 딴 것 — `node tools/trace-logo.mjs` → `kit/logo.svg`(이상한나라의 / UIUX) · `logo-inau.svg` · `logo-inayu.svg` · `symbol.svg`(하트+커서) · `avatar.svg` · 프로필 `profile.png`. 색: 빨강 `--logo-accent` #9F1723, 잉크 currentColor. 임의로 다시 그리지 않는다.
 
 ## 1. 색
 

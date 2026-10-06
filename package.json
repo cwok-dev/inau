@@ -14,7 +14,9 @@
     "playwright-core": "^1.48.0"
   },
   "devDependencies": {
+    "jimp": "^0.22.12",
     "opentype.js": "^2.0.0",
+    "potrace": "^2.1.8",
     "wawoff2": "^2.0.1"
   }
 }

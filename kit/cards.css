@@ -10,16 +10,16 @@ body { background: #fff; }
 .card-page.blue { background: var(--primary); color: #fff; }
 
 /* 머리: 로고 · 쪽수 */
-.cp-head { display: flex; align-items: center; justify-content: space-between; height: 48px; flex: none; }
-.cp-logo svg { height: 48px; width: auto; display: block; }
-.cp-logo { color: var(--text-strong); --logo-accent: #d42a3a; }
+.cp-head { display: flex; align-items: center; justify-content: space-between; flex: none; }
+.cp-logo svg { height: 92px; width: auto; display: block; }
+.cp-logo { color: var(--text-strong); --logo-accent: #9f1723; }
 .dark .cp-logo, .blue .cp-logo { color: #fff; }
 .blue .cp-logo { --logo-accent: #fff; }
 .cp-page { font-size: 26px; font-weight: 600; color: var(--text-hint); letter-spacing: .02em; }
 .dark .cp-page, .blue .cp-page { color: rgba(255,255,255,.6); }
 
 /* 본문 */
-.cp-kicker { margin-top: 72px; font-size: 30px; font-weight: 700; color: var(--primary); letter-spacing: -0.01em; }
+.cp-kicker { margin-top: 44px; font-size: 30px; font-weight: 700; color: var(--primary); letter-spacing: -0.01em; }
 .dark .cp-kicker { color: var(--blue-300); }
 .cp-title { margin-top: 20px; font-size: 76px; line-height: 1.22; font-weight: 800; letter-spacing: -0.035em; }
 .cp-title.l { font-size: 88px; }

@@ -21,7 +21,7 @@
 | `.github/workflows/pages.yml` | main 머지 → 블로그 배포 |
 | `.claude/skills/uncomfortable-ui/` | 분석·와이어프레임·글쓰기 규칙 |
 | `kit/` | 디자인 시스템: `DESIGN.md`(규칙) · `components.png`(카탈로그) · `tokens.css` `components.css` `annotate.css` → `wire.css` · `logo.svg` |
-| `tools/` | fetch-media(첨부·프레임) · render(HTML→PNG) · render-cards(카드뉴스) · build-site · publish-instagram · make-logo |
+| `tools/` | fetch-media(첨부·프레임) · render(HTML→PNG) · render-cards(카드뉴스) · build-site · publish-instagram · trace-logo(로고 시안 → SVG) |
 | `.github/workflows/instagram.yml` | 승인 이슈에 `/게시` 댓글 → Instagram 캐러셀 게시 |
 | `posts/` | 발행된 글 |
 
