@@ -8,6 +8,8 @@ const SITE = '불편한UI';
 const DESC = '이 UI, 이렇게 고쳐보면 어떨까?';
 const SITE_URL = (process.env.SITE_URL || '').replace(/\/$/, '');
 const OUT = '_site';
+// kit/logo.svg(tools/make-logo.mjs 로 생성)가 있으면 인라인, 없으면 텍스트 로고
+const LOGO = existsSync('kit/logo.svg') ? readFileSync('kit/logo.svg', 'utf8').trim() : '불편한<b>UI</b>';
 const POSTS = process.env.POSTS_DIR || 'posts';
 
 function frontmatter(src) {
@@ -34,8 +36,8 @@ const CSS = `
 *{box-sizing:border-box}body{margin:0;word-break:keep-all;background:var(--bg);color:var(--ink);font:17px/1.75 Pretendard,'Noto Sans KR',system-ui,sans-serif;letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
 a{color:inherit}.wrap{max-width:760px;margin:0 auto;padding:0 16px}
 header.site{padding:40px 0 24px;border-bottom:1px solid var(--line);margin-bottom:32px}
-header.site a{text-decoration:none}.logo{font-size:28px;font-weight:800}.logo b{color:var(--bad)}
-.tagline{color:var(--ink-2);margin-top:4px;font-size:15px}
+header.site a{text-decoration:none}.logo{display:block;font-size:28px;font-weight:800;--logo-accent:var(--bad)}.logo b{color:var(--bad)}.logo svg{display:block;height:40px;width:auto}
+.tagline{font-family:Pretendard,system-ui,sans-serif;font-size:17px;color:var(--ink-2);margin-top:10px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;padding-bottom:64px}
 .card{display:block;text-decoration:none;background:var(--card);border-radius:16px;overflow:hidden}
 .card img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top;background:#ddd}
@@ -56,7 +58,7 @@ ${image ? `<meta property="og:image" content="${esc(image)}">` : ''}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="alternate" type="application/rss+xml" title="${SITE}" href="${root}feed.xml">
 <style>${CSS}</style></head><body><div class="wrap">
-<header class="site"><a href="${root}"><div class="logo">불편한<b>UI</b></div></a><div class="tagline">${DESC}</div></header>
+<header class="site"><a href="${root}"><div class="logo">${LOGO}</div></a><div class="tagline">${DESC}</div></header>
 ${body}</div></body></html>`;
 
 rmSync(OUT, { recursive: true, force: true });
