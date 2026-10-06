@@ -65,6 +65,13 @@ jobs:
             --max-turns 80
             --allowedTools "Read,Write,Edit,Glob,Grep,Bash(node tools/*),Bash(mv *),Bash(cp *),Bash(mkdir *),Bash(ls *),Bash(rm posts/*)"
 
+      - name: 카드뉴스 렌더링
+        run: |
+          for d in $(git status --porcelain posts | awk '{print $2}' | cut -d/ -f2 | sort -u); do
+            [ -f "posts/$d/cards.json" ] && node tools/render-cards.mjs "posts/$d"
+          done
+          exit 0
+
       - name: 커밋 · PR 만들기
         id: pr
         run: |

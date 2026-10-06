@@ -40,7 +40,7 @@ header.site a{text-decoration:none}.logo{display:block;font-size:28px;font-weigh
 .tagline{font-family:Pretendard,system-ui,sans-serif;font-size:17px;color:var(--ink-2);margin-top:10px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;padding-bottom:64px}
 .card{display:block;text-decoration:none;background:var(--card);border-radius:16px;overflow:hidden}
-.card img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top;background:#ddd}
+.card img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top;background:#ddd}
 .card .meta{padding:14px 16px 18px}.card .app{font-size:13px;color:var(--ink-2)}.card h2{font-size:17px;line-height:1.45;margin:4px 0 0}
 article h1{font-size:30px;line-height:1.35;margin:0 0 8px}.byline{color:var(--ink-2);font-size:14px;margin-bottom:28px}
 article h2{font-size:21px;margin:44px 0 12px}article img{max-width:100%;height:auto;border-radius:12px;display:block;margin:20px auto}
@@ -75,7 +75,14 @@ for (const dir of existsSync(POSTS) ? readdirSync(POSTS) : []) {
   for (const f of readdirSync(join(POSTS, dir))) {
     if (/\.(png|jpe?g|gif|webp|svg)$/i.test(f)) copyFileSync(join(POSTS, dir, f), join(outDir, f));
   }
+  // 카드뉴스(인스타 게시용 공개 URL) — tools/render-cards.mjs 결과
+  const cardsDir = join(POSTS, dir, 'cards');
+  if (existsSync(cardsDir)) {
+    mkdirSync(join(outDir, 'cards'), { recursive: true });
+    for (const f of readdirSync(cardsDir)) if (/\.(png|txt)$/i.test(f)) copyFileSync(join(cardsDir, f), join(outDir, 'cards', f));
+  }
   const post = { dir, ...data, date: data.date || dir.slice(0, 10) };
+  post.thumb = existsSync(join(cardsDir, 'card-01.png')) ? 'cards/card-01.png' : data.cover || 'compare.png';
   const tags = (Array.isArray(data.tags) ? data.tags : []).map((t) => `<span>#${esc(t)}</span>`).join('');
   const html = `<nav class="back"><a href="../../">← 전체 글</a></nav><article>
 <h1>${esc(post.title)}</h1><div class="byline">${esc(post.app || '')}${post.screen ? ` · ${esc(post.screen)}` : ''} · ${esc(post.date)}</div>
@@ -87,7 +94,7 @@ ${marked.parse(body)}<div class="tags">${tags}</div></article>`;
 posts.sort((a, b) => (a.date < b.date ? 1 : -1));
 
 const cards = posts.map((p) => `<a class="card" href="posts/${p.dir}/">
-<img src="posts/${p.dir}/${esc(p.cover || 'compare.png')}" alt="" loading="lazy">
+<img src="posts/${p.dir}/${esc(p.thumb)}" alt="" loading="lazy">
 <div class="meta"><div class="app">${esc(p.app || '')}</div><h2>${esc(p.title)}</h2></div></a>`).join('\n');
 writeFileSync(join(OUT, 'index.html'), layout(SITE, `<div class="grid">${cards || '<p>아직 글이 없어요.</p>'}</div>`, './'));
 

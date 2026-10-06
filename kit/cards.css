@@ -1,0 +1,63 @@
+/* 불편한UI 카드뉴스 — 1080×1350 (Instagram 4:5). 토큰은 tokens.css 를 그대로 쓴다.
+   tools/render-cards.mjs 가 cards.json 을 이 레이아웃에 채워 PNG로 만든다. */
+@import url('tokens.css');
+@import url('annotate.css');
+
+body { background: #fff; }
+.card-page { width: 1080px; height: 1350px; position: relative; overflow: hidden; display: flex; flex-direction: column;
+  padding: 88px 88px 0; background: var(--bg-sub); color: var(--text-strong); }
+.card-page.dark { background: var(--gray-900); color: #fff; }
+.card-page.blue { background: var(--primary); color: #fff; }
+
+/* 머리: 로고 · 쪽수 */
+.cp-head { display: flex; align-items: center; justify-content: space-between; height: 48px; flex: none; }
+.cp-logo svg { height: 40px; width: auto; display: block; }
+.cp-logo { color: var(--text-strong); --logo-accent: #e5484d; }
+.dark .cp-logo, .blue .cp-logo { color: #fff; }
+.blue .cp-logo { --logo-accent: #fff; }
+.cp-page { font-size: 26px; font-weight: 600; color: var(--text-hint); letter-spacing: .02em; }
+.dark .cp-page, .blue .cp-page { color: rgba(255,255,255,.6); }
+
+/* 본문 */
+.cp-kicker { margin-top: 72px; font-size: 30px; font-weight: 700; color: var(--primary); letter-spacing: -0.01em; }
+.dark .cp-kicker { color: var(--blue-300); }
+.cp-title { margin-top: 20px; font-size: 76px; line-height: 1.22; font-weight: 800; letter-spacing: -0.035em; }
+.cp-title.l { font-size: 88px; }
+.cp-title.m { font-size: 60px; }
+.cp-sub { margin-top: 28px; font-size: 32px; line-height: 1.45; color: var(--text-sub); font-weight: 500; }
+.dark .cp-sub, .blue .cp-sub { color: rgba(255,255,255,.72); }
+.cp-body { margin-top: 36px; font-size: 44px; line-height: 1.5; font-weight: 600; letter-spacing: -0.02em; white-space: pre-line; }
+.cp-quote { margin-top: 40px; padding: 8px 0 8px 36px; border-left: 8px solid var(--anno-bad); }
+
+.cp-points { margin-top: 56px; display: flex; flex-direction: column; gap: 44px; }
+.cp-point { display: flex; gap: 28px; align-items: flex-start; font-size: 44px; line-height: 1.42; font-weight: 600; letter-spacing: -0.02em; }
+.cp-point .n { position: static; flex: none; width: 60px; height: 60px; font-size: 32px; line-height: 60px; margin-top: 2px; box-shadow: none; }
+.cp-point .sub { display: block; margin-top: 10px; font-size: 32px; font-weight: 500; color: var(--text-sub); }
+
+/* 이미지 */
+.cp-figure { flex: 1; min-height: 0; margin-top: 56px; display: flex; justify-content: center; align-items: flex-start; overflow: hidden; }
+.cp-figure img { display: block; max-width: 100%; }
+.cp-figure.bleed { margin-left: -88px; margin-right: -88px; }
+.cp-figure.phone-crop img { width: 640px; }             /* 휴대폰 캡처: 위쪽만 보이고 아래는 잘림 */
+.cp-figure.fit { align-items: center; padding-bottom: 72px; }
+.cp-figure.fit img { max-height: 100%; width: auto; border-radius: 24px; }
+.cp-split { flex: 1; min-height: 0; display: flex; gap: 48px; margin-top: 48px; }
+.cp-split .cp-points { margin-top: 8px; flex: 1; gap: 36px; }
+.cp-split .cp-point { font-size: 38px; }
+.cp-split { padding-bottom: 56px; }
+.cp-split .cp-figure { margin-top: 0; flex: none; width: 460px; align-items: center; }
+.cp-split .cp-figure img { width: auto; max-width: 460px; max-height: 100%; }
+
+/* 꼬리 */
+.cp-foot { margin-top: auto; padding: 0 0 80px; font-size: 28px; color: var(--text-sub); display: flex; justify-content: space-between; }
+.dark .cp-foot { color: rgba(255,255,255,.6); }
+.cp-tags { margin-top: 36px; font-size: 32px; font-weight: 600; color: var(--blue-300); line-height: 1.6; }
+
+/* Before/After 두 대 나란히 */
+.cp-duo { flex: 1; min-height: 0; display: flex; gap: 24px; margin: 40px -40px 0; padding-bottom: 64px; }
+.cp-pane { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.cp-pane .pane-tag { font-size: 26px; padding: 8px 18px; border-radius: 10px; align-self: center; }
+.cp-pane img { flex: 1; min-height: 0; max-width: 100%; object-fit: contain; }
+/* 가운데 정렬 (마지막 장) */
+.cp-center { flex: 1; display: flex; flex-direction: column; justify-content: center; padding-bottom: 40px; }
+.cp-center .cp-kicker { margin-top: 0; }

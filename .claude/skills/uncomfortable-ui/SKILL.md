@@ -120,7 +120,12 @@ status: published   # hidden 으로 바꾸면 사이트에서 숨김
 
 ## 5. 카드뉴스 원고 — `cards.json`
 
-2단계(Canva → Instagram)에서 쓴다. 1080×1350 기준 6장 내외.
+Instagram 캐러셀 원고. PNG는 직접 그리지 않는다 — 워크플로가 `node tools/render-cards.mjs posts/<글>`로 `cards/card-01~06.png`와 `cards/caption.txt`를 만든다(레이아웃: `kit/cards.css`, 1080×1350).
+- `points`는 `"① 핵심 — 보조 설명"` 형식. `—` 앞은 큰 글씨, 뒤는 작은 회색 글씨가 된다. 핵심은 20자 안쪽.
+- `problem.body`는 2줄 이내(`
+`으로 줄바꿈), `cover.title`·`outro.title`은 30자 안쪽.
+- `why`에 image가 없으면 annotated.png, `compare`는 annotated.png와 after.png를 나란히 쓴다.
+- cards.json을 고쳤으면 렌더링해서 PNG를 열어 보고 글자 넘침을 확인한다.
 
 ```json
 { "slides": [

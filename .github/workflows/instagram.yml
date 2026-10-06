@@ -1,0 +1,73 @@
+name: 인스타 게시
+
+on:
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      dir:
+        description: 게시할 글 폴더 이름 (posts/ 아래)
+        required: true
+      dry:
+        description: 게시하지 않고 확인만
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: instagram
+
+jobs:
+  publish:
+    # 저장소 주인이 'ig' 승인 이슈에 /게시 댓글을 단 경우만
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.comment.user.login == github.repository_owner &&
+       !github.event.issue.pull_request &&
+       contains(github.event.issue.labels.*.name, 'ig') &&
+       startsWith(github.event.comment.body, '/게시'))
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+      IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+      IG_USER_ID: ${{ secrets.IG_USER_ID }}
+      ISSUE: ${{ github.event.issue.number }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: 글 폴더 찾기
+        id: post
+        env:
+          TITLE: ${{ github.event.issue.title }}
+          INPUT_DIR: ${{ inputs.dir }}
+        run: |
+          d="$INPUT_DIR"
+          if [ -z "$d" ]; then d=$(echo "$TITLE" | sed -n 's/.*\[\([^]]*\)\]$/\1/p'); fi
+          [ -n "$d" ] || { echo "제목에서 [글 폴더]를 못 찾았어요"; exit 1; }
+          echo "dir=$d" >> "$GITHUB_OUTPUT"
+
+      - name: 게시
+        id: ig
+        run: |
+          flag=""
+          [ "${{ inputs.dry }}" = "true" ] && flag="--dry"
+          node tools/publish-instagram.mjs "${{ steps.post.outputs.dir }}" $flag 2>&1 | tee out.txt
+          exit ${PIPESTATUS[0]}
+
+      - name: 결과 남기기
+        if: always() && env.ISSUE != ''
+        run: |
+          if [ -n "${{ steps.ig.outputs.permalink }}" ]; then
+            gh issue comment "$ISSUE" --body "✅ Instagram에 올렸어요 → ${{ steps.ig.outputs.permalink }}"
+            gh issue close "$ISSUE" --reason completed
+          else
+            { echo "⚠️ 게시하지 못했어요. 고친 뒤 \`/게시\`를 다시 남겨 주세요."; echo; echo '```'; tail -20 out.txt 2>/dev/null; echo '```'; } > msg.md
+            gh issue comment "$ISSUE" --body-file msg.md
+          fi
