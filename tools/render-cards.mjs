@@ -12,7 +12,7 @@ if (!dirs.length) {
 }
 
 const KIT = resolve('kit');
-const LOGO = readFileSync(join(KIT, 'logo.svg'), 'utf8');
+const LOGO = readFileSync(join(KIT, 'logo-inau.svg'), 'utf8'); // 카드 머리 로고는 INAU
 const BLOG = (process.env.SITE_URL || 'https://cwok-dev.github.io/uncomfortable-ui').replace(/\/$/, '');
 const esc = (s = '') => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const CIRCLED = '①②③④⑤⑥⑦⑧⑨';

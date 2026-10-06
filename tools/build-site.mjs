@@ -8,8 +8,8 @@ const SITE = '이상한나라의UIUX';
 const DESC = '이 UI, 이렇게 고쳐보면 어떨까?';
 const SITE_URL = (process.env.SITE_URL || '').replace(/\/$/, '');
 const OUT = '_site';
-// kit/logo.svg(tools/trace-logo.mjs 로 생성)가 있으면 인라인, 없으면 텍스트 로고
-const LOGO = existsSync('kit/logo.svg') ? readFileSync('kit/logo.svg', 'utf8').trim() : '이상한나라의<b>UIUX</b>';
+// kit/logo-inau.svg(tools/trace-logo.mjs 로 생성)를 인라인
+const LOGO = existsSync('kit/logo-inau.svg') ? readFileSync('kit/logo-inau.svg', 'utf8').trim() : 'INAU'; // 블로그 머리 로고는 INAU
 const POSTS = process.env.POSTS_DIR || 'posts';
 
 function frontmatter(src) {
@@ -36,7 +36,7 @@ const CSS = `
 *{box-sizing:border-box}body{margin:0;word-break:keep-all;background:var(--bg);color:var(--ink);font:17px/1.75 Pretendard,'Noto Sans KR',system-ui,sans-serif;letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
 a{color:inherit}.wrap{max-width:760px;margin:0 auto;padding:0 16px}
 header.site{padding:40px 0 24px;border-bottom:1px solid var(--line);margin-bottom:32px}
-header.site a{text-decoration:none}.logo{display:block;font-size:28px;font-weight:800;--logo-accent:#9f1723}.logo b{color:var(--bad)}.logo svg{display:block;height:112px;width:auto;max-width:100%}
+header.site a{text-decoration:none}.logo{display:block;font-size:28px;font-weight:800;--logo-accent:#9f1723}.logo b{color:var(--bad)}.logo svg{display:block;height:72px;width:auto;max-width:100%}
 .tagline{font-family:Pretendard,system-ui,sans-serif;font-size:17px;color:var(--ink-2);margin-top:10px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;padding-bottom:64px}
 .card{display:block;text-decoration:none;background:var(--card);border-radius:16px;overflow:hidden}

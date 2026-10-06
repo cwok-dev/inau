@@ -5,7 +5,7 @@
 
 - 진입 CSS: `kit/wire.css` (tokens → components → annotate)
 - 눈으로 보는 카탈로그: `kit/components.png` (원본 `kit/components.html`)
-- 로고: GPT 시안 01 HEART(`kit/brand-src/gpt-logo-sheet.png`)를 그대로 벡터로 딴 것 — `node tools/trace-logo.mjs` → `kit/logo.svg`(이상한나라의 / UIUX) · `logo-inau.svg` · `logo-inayu.svg` · `symbol.svg`(하트+커서) · `avatar.svg` · 프로필 `profile.png`. 색: 빨강 `--logo-accent` #9F1723, 잉크 currentColor. 임의로 다시 그리지 않는다.
+- 로고: GPT 시안 01 HEART(`kit/brand-src/gpt-logo-sheet.png`)를 그대로 벡터로 딴 것 — `node tools/trace-logo.mjs`. **블로그 머리·카드뉴스 머리 = `logo-inau.svg`**, 인스타 프로필 = `logo.svg`(이상한나라의 / UIUX)를 `kit/profile.png`(1080, `kit/profile.html`)로. 그 외 `logo-inayu.svg` · `symbol.svg` · `avatar.svg`. 색: 빨강 `--logo-accent` #9F1723, 잉크 currentColor. 임의로 다시 그리지 않는다.
 
 ## 1. 색
 
