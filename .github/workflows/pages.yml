@@ -3,7 +3,7 @@ name: 블로그 발행 (GitHub Pages)
 on:
   push:
     branches: [main]
-    paths: ['posts/**', 'tools/build-site.mjs', '.github/workflows/pages.yml']
+    paths: ['posts/**', 'kit/logo.svg', 'tools/build-site.mjs', '.github/workflows/pages.yml']
   workflow_dispatch:
 
 permissions:
