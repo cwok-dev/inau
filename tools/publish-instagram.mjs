@@ -31,8 +31,10 @@ if (!capRes.ok) throw new Error(`caption.txt 를 못 찾았어요: ${base}/capti
 const caption = (await capRes.text()).trim();
 
 console.log(`카드 ${images.length}장\n${images.join('\n')}\n\n--- 캡션 (${caption.length}자) ---\n${caption}\n`);
-if (DRY) process.exit(0);
-if (!TOKEN) throw new Error('IG_ACCESS_TOKEN 이 없어요.');
+if (!TOKEN) {
+  if (DRY) process.exit(0);
+  throw new Error('IG_ACCESS_TOKEN 이 없어요.');
+}
 
 async function call(method, path, params = {}) {
   const url = new URL(`${API}/${path}`);
@@ -44,6 +46,11 @@ async function call(method, path, params = {}) {
   if (!res.ok || json.error) throw new Error(`${method} ${path}: ${JSON.stringify(json.error || json)}`);
   return json;
 }
+// 토큰 확인 (드라이런에서도): 어느 계정으로 올라가는지 보여준다
+const me = await call('GET', USER, { fields: 'user_id,username,account_type' });
+console.log(`계정: @${me.username} (${me.account_type || '?'}, id ${me.user_id || me.id})`);
+if (DRY) process.exit(0);
+
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 async function waitReady(id) {
   for (let i = 0; i < 30; i++) {
