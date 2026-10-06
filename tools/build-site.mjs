@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { marked } from 'marked';
 
 const SITE = '불편한UI';
-const DESC = '쓰다가 불편했던 앱 화면을 기록하고, 고쳐 그려봅니다.';
+const DESC = '이 UI, 이렇게 고쳐보면 어떨까?';
 const SITE_URL = (process.env.SITE_URL || '').replace(/\/$/, '');
 const OUT = '_site';
 const POSTS = process.env.POSTS_DIR || 'posts';
