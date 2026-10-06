@@ -1,0 +1,99 @@
+name: 제보 처리 (이슈 → PR)
+
+on:
+  issues:
+    types: [opened, labeled]
+  workflow_dispatch:
+    inputs:
+      issue:
+        description: 다시 처리할 이슈 번호
+        required: true
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  id-token: write
+
+concurrency:
+  group: ux-issue-${{ github.event.issue.number || inputs.issue }}
+
+jobs:
+  process:
+    # 공개 저장소라 누구나 이슈를 열 수 있다 → 저장소 주인이 연 'ux' 이슈만 처리
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.issue.user.login == github.repository_owner &&
+       contains(github.event.issue.labels.*.name, 'ux') &&
+       (github.event.action == 'opened' || github.event.label.name == 'ux'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      N: ${{ github.event.issue.number || inputs.issue }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: 의존성 · 한글 폰트
+        run: |
+          npm ci
+          sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-cjk > /dev/null
+
+      - name: 첨부 내려받기 · 영상 프레임 추출
+        run: node tools/fetch-media.mjs "$N"
+
+      - name: 처리 시작 알림
+        run: gh issue comment "$N" --body "🛠️ 분석과 와이어프레임 작업을 시작했어요. 끝나면 PR 링크를 남길게요. ([진행 로그](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}))"
+
+      - name: Claude — 분석 · 와이어프레임 · 글
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ github.token }}
+          prompt: |
+            uncomfortable-ui 스킬(.claude/skills/uncomfortable-ui/SKILL.md)을 따라 이슈 #${{ env.N }} 제보를 글로 만들어 주세요.
+            - 입력은 이미 work/issue-${{ env.N }}/manifest.json 에 준비되어 있습니다.
+            - posts/ 아래 새 폴더와 work/issue-${{ env.N }}/pr-body.md 를 만들면 끝입니다.
+            - git commit / push / PR 생성은 하지 마세요. 다음 단계가 처리합니다.
+          claude_args: >-
+            --model ${{ vars.CLAUDE_MODEL || 'claude-opus-5-5' }}
+            --max-turns 80
+            --allowedTools "Read,Write,Edit,Glob,Grep,Bash(node tools/*),Bash(mv *),Bash(cp *),Bash(mkdir *),Bash(ls *),Bash(rm posts/*)"
+
+      - name: 커밋 · PR 만들기
+        id: pr
+        run: |
+          if [ -z "$(git status --porcelain posts)" ]; then
+            gh issue comment "$N" --body "⚠️ 글이 만들어지지 않았어요. [로그](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})를 확인해 주세요."
+            exit 1
+          fi
+          title=$(node -p "require('./work/issue-$N/manifest.json').title")
+          branch="ux/issue-$N"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add posts
+          git commit -q -m "post: $title (#$N)"
+          git push -f -q origin "$branch"
+          body="work/issue-$N/pr-body.md"
+          [ -f "$body" ] || echo "Closes #$N" > "$body"
+          url=$(gh pr view "$branch" --json url -q .url 2>/dev/null || gh pr create --head "$branch" --title "📝 $title" --body-file "$body")
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          gh issue comment "$N" --body "✅ 초안이 나왔어요 → $url
+          수정할 게 있으면 PR에 \`@claude 와이어프레임에서 버튼을 위로 올려줘\`처럼 댓글을 남기고, 괜찮으면 Merge 하면 블로그에 올라갑니다."
+
+      - name: 폰 알림 (ntfy)
+        if: steps.pr.outputs.url != ''
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: |
+          [ -n "$NTFY_TOPIC" ] || exit 0
+          curl -s -H "Title: 불편한UI 초안 도착 (#$N)" -H "Priority: 5" -H "Tags: art" \
+            -H "Click: ${{ steps.pr.outputs.url }}" \
+            -H "Actions: view, PR 열기, ${{ steps.pr.outputs.url }}" \
+            -d "$(node -p "require('./work/issue-$N/manifest.json').title")" "https://ntfy.sh/$NTFY_TOPIC" > /dev/null

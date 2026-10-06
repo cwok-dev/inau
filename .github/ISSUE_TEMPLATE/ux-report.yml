@@ -1,0 +1,60 @@
+name: 불편한 UI 제보
+description: 쓰다가 불편했던 화면을 캡처/녹화해서 올리면 분석·와이어프레임이 담긴 PR이 자동으로 만들어집니다.
+title: "[앱 이름] 한 줄 요약"
+labels: ["ux"]
+body:
+  - type: input
+    id: app
+    attributes:
+      label: 앱 이름
+      placeholder: 예) 배달의민족
+    validations:
+      required: true
+  - type: input
+    id: screen
+    attributes:
+      label: 화면 / 위치
+      description: 어디서 겪었나요? (탭 > 메뉴 > 화면)
+      placeholder: 예) 장바구니 > 결제하기 > 쿠폰 선택
+  - type: textarea
+    id: goal
+    attributes:
+      label: 하려던 일
+      placeholder: 예) 쿠폰을 적용해서 결제하려고 했다
+    validations:
+      required: true
+  - type: textarea
+    id: pain
+    attributes:
+      label: 불편한 이유
+      description: 무엇이, 왜 불편했는지 생각나는 대로
+      placeholder: 예) 적용 가능한 쿠폰이 맨 아래에 있어서 한참 내려야 했다. 적용 불가 쿠폰도 같은 색이라 구분이 안 됨
+    validations:
+      required: true
+  - type: input
+    id: caption
+    attributes:
+      label: 캡션 (한 줄)
+      description: 글 제목·카드뉴스 첫 장에 쓰입니다. 비워두면 AI가 제안합니다.
+      placeholder: 예) 쓸 수 있는 쿠폰은 왜 맨 아래에 있을까
+  - type: textarea
+    id: idea
+    attributes:
+      label: 내 개선 아이디어 (선택)
+      description: 있으면 적어주세요. AI가 이걸 출발점으로 수정안을 만듭니다.
+  - type: textarea
+    id: media
+    attributes:
+      label: 캡처 / 영상
+      description: 이 칸에 스크린샷이나 화면 녹화를 첨부하세요 (여러 개 가능). ⚠️ 공개 저장소라 첨부 원본은 누구나 볼 수 있어요. 이름·전화번호·주소·주문번호가 보이면 미리 가리고 올려주세요 (글에 쓰는 이미지는 AI가 한 번 더 가립니다).
+    validations:
+      required: true
+  - type: dropdown
+    id: device
+    attributes:
+      label: 기기
+      options:
+        - Android
+        - iPhone
+        - 태블릿
+        - PC 웹

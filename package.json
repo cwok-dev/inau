@@ -1,0 +1,16 @@
+{
+  "name": "uncomfortable-ui",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "fetch": "node tools/fetch-media.mjs",
+    "render": "node tools/render.mjs",
+    "build": "node tools/build-site.mjs",
+    "preview": "node tools/build-site.mjs && npx --yes serve _site"
+  },
+  "dependencies": {
+    "ffmpeg-static": "^5.2.0",
+    "marked": "^14.1.0",
+    "playwright-core": "^1.48.0"
+  }
+}

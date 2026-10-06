@@ -1,0 +1,54 @@
+name: 수정 요청 (@claude 댓글)
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  pull_request_review:
+    types: [submitted]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  id-token: write
+
+jobs:
+  revise:
+    # 저장소 주인이 PR에 남긴 @claude 댓글만
+    if: >-
+      github.actor == github.repository_owner && (
+        (github.event_name == 'issue_comment' && github.event.issue.pull_request && contains(github.event.comment.body, '@claude')) ||
+        (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
+        (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude')))
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PR: ${{ github.event.issue.number || github.event.pull_request.number }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: 의존성 · 한글 폰트 · 원본 첨부
+        run: |
+          npm ci
+          sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-cjk > /dev/null
+          branch=$(gh pr view "$PR" --json headRefName -q .headRefName)
+          n=${branch#ux/issue-}
+          if [ "$n" != "$branch" ]; then node tools/fetch-media.mjs "$n"; fi
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ github.token }}
+          claude_args: >-
+            --model ${{ vars.CLAUDE_MODEL || 'claude-opus-5-5' }}
+            --max-turns 60
+            --allowedTools "Read,Write,Edit,Glob,Grep,Bash(node tools/*),Bash(mv *),Bash(cp *),Bash(mkdir *),Bash(ls *)"
+            --append-system-prompt "이 저장소의 글은 .claude/skills/uncomfortable-ui/SKILL.md 규칙을 따른다. 요청한 부분만 고치고, 이미지를 바꿨으면 다시 렌더링해서 확인한다."
