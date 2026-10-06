@@ -1,0 +1,129 @@
+/* 불편한UI 디자인 시스템 — 토큰
+   색 · 타이포 · 간격(4pt) · 모서리 · 그리드(4컬럼). 컴포넌트는 components.css, 주석/비교 보드는 annotate.css. */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+:root {
+  /* ── Primary (쨍한 블루) ── */
+  --blue-50:  #eef4ff;
+  --blue-100: #dbe7ff;
+  --blue-200: #b5ccff;
+  --blue-300: #84a9ff;
+  --blue-400: #4a80ff;
+  --blue-500: #0a5cff;   /* Primary */
+  --blue-600: #004ae0;
+  --blue-700: #003bb3;
+  --blue-800: #002c85;
+  --blue-900: #001d57;
+
+  /* ── Gray ── */
+  --gray-0:   #ffffff;
+  --gray-50:  #f7f8fa;
+  --gray-100: #f0f2f5;
+  --gray-200: #e3e6eb;
+  --gray-300: #cdd2da;
+  --gray-400: #a3aab5;
+  --gray-500: #7b8494;
+  --gray-600: #5a6372;
+  --gray-700: #3f4652;
+  --gray-800: #272c35;
+  --gray-900: #15181e;
+
+  /* ── Semantic ── */
+  --red-50: #fff0f0;  --red-500: #f0353f;  --red-600: #d61f2a;
+  --orange-50: #fff6e5; --orange-500: #ff9500;
+  --green-50: #e8f8f0; --green-500: #12b76a;
+
+  /* ── 역할 이름 (컴포넌트는 이것만 쓴다) ── */
+  --primary: var(--blue-500);
+  --primary-pressed: var(--blue-600);
+  --primary-weak: var(--blue-50);
+  --on-primary: #fff;
+  --text-strong: var(--gray-900);
+  --text: var(--gray-800);
+  --text-sub: var(--gray-600);
+  --text-hint: var(--gray-400);
+  --text-disabled: var(--gray-300);
+  --bg: var(--gray-0);
+  --bg-sub: var(--gray-50);
+  --fill: var(--gray-100);
+  --border: var(--gray-200);
+  --border-strong: var(--gray-300);
+  --danger: var(--red-500);
+  --danger-weak: var(--red-50);
+  --warning: var(--orange-500);
+  --warning-weak: var(--orange-50);
+  --success: var(--green-500);
+  --success-weak: var(--green-50);
+  --dim: rgba(21, 24, 30, .45);
+
+  /* ── 주석 전용 (UI 색과 겹치지 않게) ── */
+  --anno-bad: #f0353f;        /* 문제 지점 */
+  --anno-bad-weak: rgba(240, 53, 63, .12);
+  --anno-fix: #7c3aed;        /* 바뀐 부분 */
+  --anno-fix-weak: rgba(124, 58, 237, .10);
+
+  /* ── 로고 ── */
+  --logo-accent: #e5484d;
+
+  /* ── 간격 (4pt) ── */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
+  --s-5: 20px; --s-6: 24px; --s-8: 32px; --s-10: 40px; --s-12: 48px;
+
+  /* ── 모서리 ── */
+  --r-xs: 4px; --r-s: 8px; --r-m: 12px; --r-l: 16px; --r-xl: 24px; --r-full: 999px;
+
+  /* ── 그림자 ── */
+  --shadow-1: 0 1px 3px rgba(21,24,30,.08), 0 1px 2px rgba(21,24,30,.04);
+  --shadow-2: 0 8px 24px rgba(21,24,30,.12);
+
+  /* ── 그리드 (모바일 360~430) ── */
+  --grid-cols: 4;
+  --grid-margin: 20px;
+  --grid-gutter: 12px;
+
+  --font: Pretendard, -apple-system, 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font); color: var(--text); background: var(--bg-sub);
+  -webkit-font-smoothing: antialiased; word-break: keep-all;
+}
+
+/* ── 타이포그래피 (Pretendard) ──
+   이름        크기/행간  굵기   */
+.t-display { font-size: 28px; line-height: 38px; font-weight: 700; letter-spacing: -0.02em; color: var(--text-strong); }
+.t-title1  { font-size: 24px; line-height: 32px; font-weight: 700; letter-spacing: -0.02em; color: var(--text-strong); }
+.t-title2  { font-size: 20px; line-height: 28px; font-weight: 700; letter-spacing: -0.02em; color: var(--text-strong); }
+.t-title3  { font-size: 17px; line-height: 24px; font-weight: 600; letter-spacing: -0.01em; color: var(--text-strong); }
+.t-body1   { font-size: 16px; line-height: 24px; font-weight: 400; letter-spacing: -0.01em; }
+.t-body2   { font-size: 15px; line-height: 22px; font-weight: 400; letter-spacing: -0.01em; }
+.t-label   { font-size: 14px; line-height: 20px; font-weight: 600; }
+.t-caption1{ font-size: 13px; line-height: 18px; font-weight: 400; color: var(--text-sub); }
+.t-caption2{ font-size: 11px; line-height: 14px; font-weight: 500; color: var(--text-sub); }
+.w-bold { font-weight: 700; } .w-semi { font-weight: 600; } .w-reg { font-weight: 400; }
+.c-primary { color: var(--primary); } .c-sub { color: var(--text-sub); } .c-hint { color: var(--text-hint); }
+.c-danger { color: var(--danger); } .c-strong { color: var(--text-strong); }
+
+/* ── 그리드 (4컬럼) ──
+   <div class="grid"> <div class="span-2">…</div><div class="span-2">…</div> </div>
+   화면 좌우 여백 20, 컬럼 사이 12. 요소 너비는 span-1~4 로만 정한다. */
+.grid { display: grid; grid-template-columns: repeat(var(--grid-cols), 1fr);
+  column-gap: var(--grid-gutter); row-gap: var(--s-3); padding: 0 var(--grid-margin); }
+.span-1 { grid-column: span 1; } .span-2 { grid-column: span 2; }
+.span-3 { grid-column: span 3; } .span-4 { grid-column: span 4; }
+/* 그리드 보이기 (비교 보드·문서용): 화면(.phone) 맨 끝에 넣는다
+   <div class="grid-overlay"><i></i><i></i><i></i><i></i></div> */
+.grid-overlay { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(var(--grid-cols), 1fr);
+  column-gap: var(--grid-gutter); padding: 0 var(--grid-margin); pointer-events: none; z-index: 50; }
+.grid-overlay i { background: rgba(124, 58, 237, .07); border-left: 1px solid rgba(124,58,237,.18); border-right: 1px solid rgba(124,58,237,.18); }
+
+/* 간격 유틸 */
+.stack { display: flex; flex-direction: column; }
+.row { display: flex; align-items: center; }
+.grow { flex: 1; min-width: 0; }
+.gap-1 { gap: var(--s-1); } .gap-2 { gap: var(--s-2); } .gap-3 { gap: var(--s-3); }
+.gap-4 { gap: var(--s-4); } .gap-6 { gap: var(--s-6); } .gap-8 { gap: var(--s-8); }
+.pt-2 { padding-top: var(--s-2); } .pt-4 { padding-top: var(--s-4); } .pt-6 { padding-top: var(--s-6); } .pt-8 { padding-top: var(--s-8); }
+.pb-2 { padding-bottom: var(--s-2); } .pb-4 { padding-bottom: var(--s-4); } .pb-6 { padding-bottom: var(--s-6); }
+.mt-auto { margin-top: auto; } .center { text-align: center; justify-content: center; }

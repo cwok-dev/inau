@@ -20,7 +20,7 @@
 | `.github/workflows/revise.yml` | PR의 `@claude` 댓글로 수정 |
 | `.github/workflows/pages.yml` | main 머지 → 블로그 배포 |
 | `.claude/skills/uncomfortable-ui/` | 분석·와이어프레임·글쓰기 규칙 |
-| `kit/wire.css` | 와이어프레임 스타일 키트 |
+| `kit/` | 디자인 시스템: `DESIGN.md`(규칙) · `components.png`(카탈로그) · `tokens.css` `components.css` `annotate.css` → `wire.css` · `logo.svg` |
 | `tools/` | fetch-media(첨부·프레임), render(HTML→PNG), build-site |
 | `posts/` | 발행된 글 |
 

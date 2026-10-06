@@ -1,0 +1,43 @@
+/* 불편한UI — 주석 · 비교 보드. UI 색(파랑)과 겹치지 않게 문제=빨강, 바뀐 부분=보라. */
+
+/* ── 바뀐 부분 / 문제 부분 표시 (와이어프레임 위) ──
+   <div class="card fix">…<i class="n">1</i></div>  ← 번호는 본문 ①②③과 1:1 */
+.fix { outline: 2px solid var(--anno-fix); outline-offset: 4px; border-radius: var(--r-m); position: relative; }
+.bad { outline: 2px dashed var(--anno-bad); outline-offset: 4px; border-radius: var(--r-m); position: relative; }
+.fix.pad, .bad.pad { padding: var(--s-2) var(--s-3); }  /* 안쪽 여백 없는 행을 표시할 때 — 배지가 글자를 덮지 않게 */
+.n { position: absolute; top: -14px; right: -14px; width: 24px; height: 24px; border-radius: 50%; z-index: 60;
+  background: var(--anno-fix); color: #fff; font: 800 13px/24px var(--font); text-align: center; font-style: normal;
+  box-shadow: 0 0 0 2px #fff; }
+.bad > .n, .n.bad-n { background: var(--anno-bad); }
+.n.l { right: auto; left: -14px; }
+
+/* ── 원본 캡처 위 표시 ──
+   <div class="shot"><img src="…"><div class="mark" style="left:10%;top:40%;width:80%;height:8%"><i class="n">1</i></div></div> */
+.shot { position: relative; width: 390px; border-radius: 36px; overflow: hidden; background: #000;
+  box-shadow: 0 0 0 10px var(--gray-900), var(--shadow-2); }
+.shot img { display: block; width: 100%; }
+.mark { position: absolute; border: 3px solid var(--anno-bad); border-radius: 10px; box-shadow: 0 0 0 2px #fff, 0 4px 14px rgba(0,0,0,.25); }
+.mark.fill { background: var(--anno-bad-weak); }
+.mark .n { background: var(--anno-bad); }
+
+/* ── 개인정보 가림 ── */
+.redact { position: absolute; background: #c7c7cc; border-radius: 6px;
+  background-image: repeating-linear-gradient(45deg, transparent 0 6px, rgba(255,255,255,.35) 6px 12px); }
+
+/* ── 렌더링 여백 (휴대폰 그림자·번호가 잘리지 않게) ── */
+.capture { padding: 48px; display: inline-block; background: var(--bg-sub); }
+
+/* ── 비교 보드 (Before / After) ── */
+.board { padding: 56px; background: var(--bg-sub); display: inline-flex; flex-direction: column; gap: 32px; }
+.board-title { font-size: 30px; line-height: 40px; font-weight: 800; letter-spacing: -0.02em; color: var(--text-strong); }
+.board-sub { font-size: 16px; color: var(--text-sub); margin-top: -22px; }
+.compare { display: flex; gap: 56px; align-items: flex-start; }
+.pane { display: flex; flex-direction: column; gap: 24px; }
+.pane-tag { align-self: flex-start; font-size: 14px; font-weight: 800; padding: 6px 12px; border-radius: 8px; letter-spacing: .04em; }
+.pane-tag.before { background: var(--anno-bad-weak); color: var(--anno-bad); }
+.pane-tag.after { background: var(--anno-fix-weak); color: var(--anno-fix); }
+.notes { width: 320px; display: flex; flex-direction: column; gap: 18px; padding-top: 58px; }
+.note { display: flex; gap: 12px; font-size: 15px; line-height: 1.55; color: var(--text); }
+.note .n { position: static; flex: none; box-shadow: none; }
+.note b { display: block; margin-bottom: 2px; color: var(--text-strong); }
+.notes .divider { margin: 4px 0; }

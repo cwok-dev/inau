@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="render-width" content="1400">
+<title>불편한UI 디자인 시스템</title>
+<link rel="stylesheet" href="wire.css">
+<style>
+  .doc { width: 1400px; padding: 64px; display: flex; flex-direction: column; gap: 56px; background: var(--bg); }
+  .doc h2 { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--primary); margin-bottom: 20px; }
+  .doc code { font: 500 12px/1.4 ui-monospace, Consolas, monospace; color: var(--text-sub); background: var(--gray-100); padding: 2px 6px; border-radius: 4px; }
+  .sw { display: flex; gap: 8px; } .sw > div { width: 104px; } .sw .chipc { height: 56px; border-radius: 10px; margin-bottom: 6px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.05); }
+  .sw small { display: block; font-size: 11px; color: var(--text-sub); line-height: 1.4; }
+  .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .spec { display: flex; flex-direction: column; gap: 10px; }
+  .spec > .row { gap: 12px; }
+  .frame { width: 390px; background: var(--bg); border-radius: 20px; box-shadow: inset 0 0 0 1px var(--border); overflow: hidden; position: relative; }
+  .typerow { display: grid; grid-template-columns: 120px 1fr 160px; align-items: baseline; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--gray-100); }
+</style></head>
+<body><div class="doc" data-capture>
+
+<section>
+  <img src="logo.svg" style="height:44px;display:block">
+  <div class="t-body1 c-sub" style="margin-top:12px;font-size:17px">이 UI, 이렇게 고쳐보면 어떨까? — 와이어프레임 디자인 시스템</div>
+</section>
+
+<section>
+  <h2>Color · Primary</h2>
+  <div class="sw">
+    <div><div class="chipc" style="background:var(--blue-50)"></div><small>blue-50<br>#EEF4FF</small></div>
+    <div><div class="chipc" style="background:var(--blue-100)"></div><small>blue-100<br>#DBE7FF</small></div>
+    <div><div class="chipc" style="background:var(--blue-200)"></div><small>blue-200<br>#B5CCFF</small></div>
+    <div><div class="chipc" style="background:var(--blue-300)"></div><small>blue-300<br>#84A9FF</small></div>
+    <div><div class="chipc" style="background:var(--blue-400)"></div><small>blue-400<br>#4A80FF</small></div>
+    <div><div class="chipc" style="background:var(--blue-500);box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--blue-500)"></div><small><b>blue-500 Primary</b><br>#0A5CFF</small></div>
+    <div><div class="chipc" style="background:var(--blue-600)"></div><small>blue-600 pressed<br>#004AE0</small></div>
+    <div><div class="chipc" style="background:var(--blue-700)"></div><small>blue-700<br>#003BB3</small></div>
+    <div><div class="chipc" style="background:var(--blue-800)"></div><small>blue-800<br>#002C85</small></div>
+    <div><div class="chipc" style="background:var(--blue-900)"></div><small>blue-900<br>#001D57</small></div>
+  </div>
+  <h2 style="margin-top:28px">Color · Gray</h2>
+  <div class="sw">
+    <div><div class="chipc" style="background:var(--gray-0)"></div><small>gray-0 bg<br>#FFFFFF</small></div>
+    <div><div class="chipc" style="background:var(--gray-50)"></div><small>gray-50 bg-sub<br>#F7F8FA</small></div>
+    <div><div class="chipc" style="background:var(--gray-100)"></div><small>gray-100 fill<br>#F0F2F5</small></div>
+    <div><div class="chipc" style="background:var(--gray-200)"></div><small>gray-200 border<br>#E3E6EB</small></div>
+    <div><div class="chipc" style="background:var(--gray-300)"></div><small>gray-300<br>#CDD2DA</small></div>
+    <div><div class="chipc" style="background:var(--gray-400)"></div><small>gray-400 hint<br>#A3AAB5</small></div>
+    <div><div class="chipc" style="background:var(--gray-500)"></div><small>gray-500<br>#7B8494</small></div>
+    <div><div class="chipc" style="background:var(--gray-600)"></div><small>gray-600 sub<br>#5A6372</small></div>
+    <div><div class="chipc" style="background:var(--gray-800)"></div><small>gray-800 text<br>#272C35</small></div>
+    <div><div class="chipc" style="background:var(--gray-900)"></div><small>gray-900 strong<br>#15181E</small></div>
+  </div>
+  <h2 style="margin-top:28px">Color · Semantic / Annotation</h2>
+  <div class="sw">
+    <div><div class="chipc" style="background:var(--red-500)"></div><small>danger<br>#F0353F</small></div>
+    <div><div class="chipc" style="background:var(--orange-500)"></div><small>warning<br>#FF9500</small></div>
+    <div><div class="chipc" style="background:var(--green-500)"></div><small>success<br>#12B76A</small></div>
+    <div style="width:40px"></div>
+    <div><div class="chipc" style="background:var(--anno-bad)"></div><small>anno-bad 문제<br>#F0353F</small></div>
+    <div><div class="chipc" style="background:var(--anno-fix)"></div><small>anno-fix 바뀐 부분<br>#7C3AED</small></div>
+    <div><div class="chipc" style="background:var(--logo-accent)"></div><small>logo-accent<br>#E5484D</small></div>
+  </div>
+</section>
+
+<section>
+  <h2>Typography · Pretendard</h2>
+  <div class="typerow"><code>.t-display</code><div class="t-display">쓸 수 있는 쿠폰 2장</div><span class="t-caption1">28 / 38 · Bold</span></div>
+  <div class="typerow"><code>.t-title1</code><div class="t-title1">로그인하고 시작하기</div><span class="t-caption1">24 / 32 · Bold</span></div>
+  <div class="typerow"><code>.t-title2</code><div class="t-title2">결제 수단 선택</div><span class="t-caption1">20 / 28 · Bold</span></div>
+  <div class="typerow"><code>.t-title3</code><div class="t-title3">최근 주문 내역</div><span class="t-caption1">17 / 24 · SemiBold</span></div>
+  <div class="typerow"><code>.t-body1</code><div class="t-body1">주문금액 28,000원 기준으로 정리했어요.</div><span class="t-caption1">16 / 24 · Regular</span></div>
+  <div class="typerow"><code>.t-body2</code><div class="t-body2">기기를 바꿨다면 기존 계정으로 로그인하세요.</div><span class="t-caption1">15 / 22 · Regular</span></div>
+  <div class="typerow"><code>.t-label</code><div class="t-label">전체 동의</div><span class="t-caption1">14 / 20 · SemiBold</span></div>
+  <div class="typerow"><code>.t-caption1</code><div class="t-caption1">5만원 이상 구매 시 사용 가능</div><span class="t-caption1">13 / 18 · Regular</span></div>
+  <div class="typerow"><code>.t-caption2</code><div class="t-caption2">2026.10.06 업데이트</div><span class="t-caption1">11 / 14 · Medium</span></div>
+</section>
+
+<section class="row gap-8" style="align-items:flex-start">
+  <div>
+    <h2>Grid · 4 columns</h2>
+    <div class="frame" style="height:350px">
+      <div class="grid pt-6">
+        <div class="span-4 t-title3">margin 20 · gutter 12</div>
+        <div class="span-4 btn btn-primary">span-4</div>
+        <div class="span-2 btn btn-outline">span-2</div><div class="span-2 btn btn-outline">span-2</div>
+        <div class="span-1 ph r-1-1"></div><div class="span-1 ph r-1-1"></div><div class="span-1 ph r-1-1"></div><div class="span-1 ph r-1-1"></div>
+        <div class="span-3 input">span-3</div><div class="span-1 btn btn-secondary">1</div>
+      </div>
+      <div class="grid-overlay"><i></i><i></i><i></i><i></i></div>
+    </div>
+    <p class="t-caption1" style="margin-top:12px;width:390px">요소 너비는 <code>.grid</code> 안에서 <code>.span-1~4</code>로만 정한다. 세로 간격은 4의 배수(<code>gap-1~8</code>).</p>
+  </div>
+  <div class="grow">
+    <h2>Buttons</h2>
+    <div class="spec">
+      <div class="row"><button class="btn btn-l btn-primary">Primary L</button><button class="btn btn-l btn-secondary">Secondary L</button><button class="btn btn-l btn-outline">Outline L</button><code>.btn-l 56</code></div>
+      <div class="row"><button class="btn btn-primary">Primary M</button><button class="btn btn-secondary">Secondary M</button><button class="btn btn-outline">Outline M</button><button class="btn btn-text">Text</button><code>.btn 48</code></div>
+      <div class="row"><button class="btn btn-s btn-primary">Primary S</button><button class="btn btn-s btn-secondary">Secondary</button><button class="btn btn-s btn-outline">Outline</button><button class="btn btn-xs btn-outline">XS</button><code>.btn-s 36 · .btn-xs 28</code></div>
+      <div class="row"><button class="btn btn-danger">삭제하기</button><button class="btn disabled">Disabled</button></div>
+      <div style="width:390px" class="stack gap-2 pt-2">
+        <div class="btn-group"><button class="btn btn-l btn-outline">로그인</button><button class="btn btn-l btn-primary">회원가입</button></div>
+        <code style="align-self:flex-start">.btn-group — 같은 너비</code>
+        <div class="btn-group ratio-1-2"><button class="btn btn-l btn-outline">취소</button><button class="btn btn-l btn-primary">확인</button></div>
+        <code style="align-self:flex-start">.btn-group.ratio-1-2</code>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cols">
+  <div class="spec">
+    <h2>Inputs</h2>
+    <label class="field"><span class="field-label">아이디</span><div class="input">아이디 입력</div></label>
+    <label class="field"><span class="field-label">비밀번호</span><div class="input focus">••••••••</div><span class="field-help">영문, 숫자 포함 8자 이상</span></label>
+    <label class="field"><div class="input error filled">010-1234</div><span class="field-help error">휴대폰 번호를 확인해 주세요</span></label>
+    <div class="search"><span class="ic ic-search sm"></span>검색어를 입력하세요</div>
+    <div class="otp"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <code style="align-self:flex-start">.field .input(.focus .error .filled .box) .search .otp</code>
+  </div>
+  <div class="spec">
+    <h2>Controls</h2>
+    <div class="row gap-4"><span class="checkbox on"></span><span class="checkbox"></span><span class="radio on"></span><span class="radio"></span><span class="switch on"></span><span class="switch"></span></div>
+    <code style="align-self:flex-start">.checkbox .radio .switch (.on)</code>
+    <div class="segmented"><span class="on">전체</span><span>입금</span><span>출금</span></div>
+    <code style="align-self:flex-start">.segmented</code>
+    <div class="chips"><span class="chip on">전체</span><span class="chip">음식점</span><span class="chip">카페</span><span class="chip on primary">선택됨</span></div>
+    <div class="row gap-2"><span class="badge">3</span><span class="badge dot"></span><span class="tag">일반</span><span class="tag primary">추천</span><span class="tag danger">마감임박</span><span class="tag success">사용가능</span></div>
+    <code style="align-self:flex-start">.chip .badge .tag(.primary .danger .success)</code>
+    <div class="progress"><i style="width:60%"></i></div>
+    <div class="steps"><i class="on"></i><i class="on"></i><i></i><i></i></div>
+    <code style="align-self:flex-start">.progress .steps</code>
+  </div>
+  <div class="spec">
+    <h2>Card · Notice</h2>
+    <div class="card"><div class="row gap-3"><div class="thumb"></div><div class="li-body"><div class="li-title">카드 제목</div><div class="li-sub">보조 설명</div></div></div></div>
+    <div class="card selected"><div class="row"><div class="li-body"><div class="li-title">선택된 카드</div><div class="li-sub">.card.selected</div></div><span class="radio on"></span></div></div>
+    <div class="notice info">기기를 바꾸셨나요? 기존 계정으로 로그인하면 잔액이 그대로 보여요.</div>
+    <div class="notice warning">본인 명의 휴대폰만 인증할 수 있어요.</div>
+    <div class="banner"><div class="app-icon" style="width:40px;height:40px;border-radius:10px"></div><div class="li-body"><div class="li-title">배너 제목</div><div class="li-sub">.banner</div></div></div>
+    <code style="align-self:flex-start">.card(.raised .filled .selected) .notice(.info .warning .danger) .banner .ph .thumb .avatar .skel</code>
+  </div>
+</section>
+
+<section class="row gap-8" style="align-items:flex-start">
+  <div>
+    <h2>App bar · List · Nav</h2>
+    <div class="frame">
+      <div class="appbar"><span class="ic ic-back"></span><div class="appbar-title">설정</div><span class="ic ic-more"></span></div>
+      <div class="tabs"><span class="on">전체</span><span>충전</span><span>결제</span></div>
+      <div class="section-title">계정</div>
+      <div class="list">
+        <div class="list-item divided"><div class="avatar"></div><div class="li-body"><div class="li-title">홍길동</div><div class="li-sub">.list-item</div></div><span class="ic ic-chevron"></span></div>
+        <div class="list-item divided"><div class="li-body"><div class="li-title">알림 받기</div></div><span class="switch on"></span></div>
+        <div class="list-item"><div class="li-body"><div class="li-title">버전</div></div><span class="li-value">3.2.1</span></div>
+      </div>
+      <div class="section-gap"></div>
+      <div class="navbar" style="--tabs:4"><span class="on">홈</span><span>결제</span><span>혜택</span><span>전체</span></div>
+    </div>
+    <code style="display:inline-block;margin-top:12px">.appbar(.center .large .bordered) .tabs .section-title .list-item .navbar(--tabs)</code>
+  </div>
+  <div>
+    <h2>Bottom sheet · Toast</h2>
+    <div class="frame" style="height:420px">
+      <div class="grid pt-4"><div class="span-4 skel"><i></i><i></i><i></i></div></div>
+      <div class="scrim"></div>
+      <div class="sheet">
+        <div class="sheet-title">결제 수단</div>
+        <div class="list-item"><span class="radio on"></span><div class="li-body"><div class="li-title">경기지역화폐</div></div></div>
+        <div class="list-item"><span class="radio"></span><div class="li-body"><div class="li-title">신용카드</div></div></div>
+        <div class="cta"><button class="btn btn-l btn-primary btn-block">선택 완료</button></div>
+      </div>
+    </div>
+    <code style="display:inline-block;margin-top:12px">.scrim .sheet .sheet-title .cta</code>
+  </div>
+  <div>
+    <h2>Dialog</h2>
+    <div class="frame" style="height:420px">
+      <div class="scrim"></div>
+      <div class="dialog">
+        <div class="t-title2">로그아웃할까요?</div>
+        <div class="t-body2 c-sub">다시 로그인하려면 본인 인증이 필요해요.</div>
+        <div class="btn-group"><button class="btn btn-outline">취소</button><button class="btn btn-primary">로그아웃</button></div>
+      </div>
+      <div class="toast" style="bottom:auto;top:24px">저장했어요<span class="act">실행 취소</span></div>
+    </div>
+    <code style="display:inline-block;margin-top:12px">.dialog .toast .fab</code>
+  </div>
+</section>
+
+</div></body></html>

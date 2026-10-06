@@ -1,8 +1,9 @@
 name: 제보 처리 (이슈 → PR)
 
 on:
+  # 템플릿으로 열면 opened·labeled 가 동시에 와서 opened 만 받는다. 다시 돌릴 땐 Actions에서 workflow_dispatch.
   issues:
-    types: [opened, labeled]
+    types: [opened]
   workflow_dispatch:
     inputs:
       issue:
@@ -24,8 +25,7 @@ jobs:
     if: >-
       github.event_name == 'workflow_dispatch' ||
       (github.event.issue.user.login == github.repository_owner &&
-       contains(github.event.issue.labels.*.name, 'ux') &&
-       (github.event.action == 'opened' || github.event.label.name == 'ux'))
+       contains(github.event.issue.labels.*.name, 'ux'))
     runs-on: ubuntu-latest
     timeout-minutes: 40
     env:
