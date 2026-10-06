@@ -84,8 +84,7 @@ function caption(cards, post, dir) {
   const by = (t) => cards.slides.find((s) => s.type === t) || {};
   const lines = [by('cover').title || post.title, ''];
   if (by('problem').body) lines.push(by('problem').body.replace(/\n/g, ' '), '');
-  for (const t of ['why', 'fix']) {
-    const s = by(t);
+  for (const s of cards.slides.filter((x) => ['why', 'fix'].includes(x.type))) {
     if (!s.points) continue;
     lines.push(`▪️ ${s.title}`);
     s.points.map(point).forEach((p) => lines.push(`${CIRCLED[p.n - 1] || p.n} ${p.main}${p.sub ? ` — ${p.sub}` : ''}`));
