@@ -82,7 +82,11 @@ jobs:
           git push -f -q origin "$branch"
           body="work/issue-$N/pr-body.md"
           [ -f "$body" ] || echo "Closes #$N" > "$body"
-          url=$(gh pr view "$branch" --json url -q .url 2>/dev/null || gh pr create --head "$branch" --title "📝 $title" --body-file "$body")
+          if url=$(gh pr view "$branch" --json url,state -q 'select(.state=="OPEN") | .url' 2>/dev/null) && [ -n "$url" ]; then
+            gh pr edit "$branch" --title "📝 $title" --body-file "$body" > /dev/null   # 다시 처리하면 설명도 새로
+          else
+            url=$(gh pr create --head "$branch" --title "📝 $title" --body-file "$body")
+          fi
           echo "url=$url" >> "$GITHUB_OUTPUT"
           gh issue comment "$N" --body "✅ 초안이 나왔어요 → $url
           수정할 게 있으면 PR에 \`@claude 와이어프레임에서 버튼을 위로 올려줘\`처럼 댓글을 남기고, 괜찮으면 Merge 하면 블로그에 올라갑니다."
