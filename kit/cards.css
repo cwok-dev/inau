@@ -1,4 +1,4 @@
-/* 불편한UI 카드뉴스 — 1080×1350 (Instagram 4:5). 토큰은 tokens.css 를 그대로 쓴다.
+/* 이상한나라의UIUX(INAU) 카드뉴스 — 1080×1350 (Instagram 4:5). 토큰은 tokens.css 를 그대로 쓴다.
    tools/render-cards.mjs 가 cards.json 을 이 레이아웃에 채워 PNG로 만든다. */
 @import url('tokens.css');
 @import url('annotate.css');
@@ -61,3 +61,12 @@ body { background: #fff; }
 /* 가운데 정렬 (마지막 장) */
 .cp-center { flex: 1; display: flex; flex-direction: column; justify-content: center; padding-bottom: 40px; }
 .cp-center .cp-kicker { margin-top: 0; }
+
+/* 마지막 장: 댓글 투표 */
+.cp-vote { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(var(--opts, 3), 1fr); gap: 20px; margin: 40px -40px 0; }
+.cp-opt { min-height: 0; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 18px; }
+.cp-opt img { height: 100%; width: 100%; object-fit: contain; object-position: center bottom; }
+.cp-opt-label { display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 25px; line-height: 1.3; font-weight: 700; letter-spacing: -0.03em; white-space: nowrap; }
+.cp-opt-label .n { position: static; flex: none; width: 38px; height: 38px; font-size: 21px; line-height: 38px; box-shadow: none; }
+.n.vote-n { background: var(--gray-900); }
+.cp-cta { flex: none; margin: 32px -88px 0; padding: 30px 0 34px; text-align: center; background: var(--gray-900); color: #fff; font-size: 34px; font-weight: 700; }

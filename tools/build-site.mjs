@@ -4,12 +4,12 @@ import { readdirSync, readFileSync, writeFileSync, mkdirSync, copyFileSync, exis
 import { join } from 'node:path';
 import { marked } from 'marked';
 
-const SITE = '불편한UI';
+const SITE = '이상한나라의UIUX';
 const DESC = '이 UI, 이렇게 고쳐보면 어떨까?';
 const SITE_URL = (process.env.SITE_URL || '').replace(/\/$/, '');
 const OUT = '_site';
 // kit/logo.svg(tools/make-logo.mjs 로 생성)가 있으면 인라인, 없으면 텍스트 로고
-const LOGO = existsSync('kit/logo.svg') ? readFileSync('kit/logo.svg', 'utf8').trim() : '불편한<b>UI</b>';
+const LOGO = existsSync('kit/logo.svg') ? readFileSync('kit/logo.svg', 'utf8').trim() : '이상한나라의<b>UIUX</b>';
 const POSTS = process.env.POSTS_DIR || 'posts';
 
 function frontmatter(src) {

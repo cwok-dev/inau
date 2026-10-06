@@ -1,9 +1,9 @@
 ---
 name: uncomfortable-ui
-description: 불편한UI — 휴대폰 앱에서 겪은 불편한 UI/UX 제보(GitHub 이슈의 캡처·영상·불편한 이유)를 받아 문제 분석, 수정 방안, AI 와이어프레임(Before/After)을 만들고 posts/ 아래에 블로그 글로 정리한다. "불편한UI", "UX 제보 처리", "이슈 N번 글로 만들어줘", "와이어프레임 다시 그려줘" 같은 요청에 사용.
+description: 이상한나라의UIUX(INAU, 옛 이름 불편한UI) — 휴대폰 앱에서 겪은 불편한 UI/UX 제보(GitHub 이슈의 캡처·영상·불편한 이유)를 받아 문제 분석, 수정 방안, AI 와이어프레임(Before/After)을 만들고 posts/ 아래에 블로그 글로 정리한다. "불편한UI", "UX 제보 처리", "이슈 N번 글로 만들어줘", "와이어프레임 다시 그려줘" 같은 요청에 사용.
 ---
 
-# 불편한UI
+# 이상한나라의UIUX (INAU)
 
 제보 1건 = 글 1편. 입력은 GitHub 이슈(템플릿 `ux-report.yml`), 출력은 `posts/<날짜>-<slug>/` 폴더다.
 이 글은 서비스기획자 포트폴리오에도 쓰인다. 그럴듯함보다 **근거 있는 문장**이 중요하다.
@@ -126,6 +126,8 @@ Instagram 캐러셀 원고. PNG는 직접 그리지 않는다 — 워크플로�
 `으로 줄바꿈), `cover.title`·`outro.title`은 30자 안쪽.
 - `why`에 image가 없으면 annotated.png, `compare`는 annotated.png와 after.png를 나란히 쓴다.
 - cards.json을 고쳤으면 렌더링해서 PNG를 열어 보고 글자 넘침을 확인한다.
+- **마지막 장은 `vote`(댓글 투표)**: 선택지는 "원래 UI" + 제안마다 하나(제안이 하나면 2개, 두 개면 3개). label은 12자 안쪽. 캡션 끝에 번호 목록과 "댓글로 번호를 남겨주세요"가 자동으로 붙는다. 한 줄 정리는 본문에만 쓴다.
+- 제안이 두 개면 이미지를 `after-a.png`·`after-b.png`로 나누고 `fix` 장도 두 장으로.
 
 ```json
 { "slides": [
@@ -134,8 +136,11 @@ Instagram 캐러셀 원고. PNG는 직접 그리지 않는다 — 워크플로�
   { "type": "why",     "title": "왜 불편할까", "points": ["①...", "②..."] },
   { "type": "fix",     "title": "이렇게 바꿔보면", "points": ["①...", "②..."], "image": "after.png" },
   { "type": "compare", "title": "Before / After", "image": "compare.png" },
-  { "type": "outro",   "title": "<한 줄 정리>", "sub": "#불편한UI #UX #서비스기획" }
-], "hashtags": ["불편한UI", "UX", "UI", "서비스기획", "<앱이름>"] }
+  { "type": "vote",    "title": "어느 쪽이 더 나을까요?", "options": [
+      { "label": "원래 UI", "image": "before.png" },
+      { "label": "<제안 A 한 줄 요약>", "image": "after-a.png" }
+  ] }
+], "hashtags": ["이상한나라의UIUX", "INAU", "UX", "UI", "서비스기획", "<앱이름>"] }
 ```
 
 ## 6. 마무리 — PR 설명 `work/issue-N/pr-body.md`

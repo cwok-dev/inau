@@ -1,11 +1,11 @@
-# 불편한UI 디자인 시스템
+# 이상한나라의UIUX(INAU) 디자인 시스템
 
 와이어프레임(After)은 **원본 화면을 따라 그리지 않고, 이 시스템의 컴포넌트를 조립해서** 그린다.
 원본에서 가져오는 것은 "화면에 무엇이 있어야 하는가(정보·기능)"뿐이고, "어떻게 생겼는가(모양·색·크기)"는 여기서 가져온다.
 
 - 진입 CSS: `kit/wire.css` (tokens → components → annotate)
 - 눈으로 보는 카탈로그: `kit/components.png` (원본 `kit/components.html`)
-- 로고: `kit/logo.svg` (학교안심 점심시간 아웃라인, "UI"는 `--logo-accent`)
+- 로고: `kit/logo.svg`(이상한나라의UIUX) · `kit/logo-short.svg`(INAU) — 학교안심 마법사(OFL) 아웃라인, 영문은 `--logo-accent`
 
 ## 1. 색
 

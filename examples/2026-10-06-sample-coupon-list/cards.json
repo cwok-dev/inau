@@ -1,8 +1,52 @@
-{ "slides": [
-  { "type": "cover", "title": "쓸 수 있는 쿠폰은 왜 맨 아래에 있을까", "sub": "쇼핑몰A · 쿠폰 선택", "image": "before.png" },
-  { "type": "problem", "title": "무엇이 불편했나", "body": "7장 중 쓸 수 있는 건 2장.\n그걸 알려면 조건을 하나하나 읽어야 했다.", "image": "annotated.png" },
-  { "type": "why", "title": "왜 불편할까", "points": ["① 앱이 아는 조건을 사용자가 직접 대조", "② 가장 이득인 쿠폰이 맨 아래, 버튼에 가려짐"] },
-  { "type": "fix", "title": "이렇게 바꿔보면", "points": ["① 주문금액 기준으로 나누기", "② 최대 할인 자동 선택", "③ 못 쓰는 쿠폰은 접고 이유 표시"], "image": "after.png" },
-  { "type": "compare", "title": "Before / After", "image": "compare.png" },
-  { "type": "outro", "title": "앱이 먼저 걸러주면, 사용자는 고르기만 하면 된다", "sub": "#불편한UI #UX #서비스기획" }
-], "hashtags": ["불편한UI", "UX", "UI", "서비스기획", "UX개선"] }
+{
+  "slides": [
+    {
+      "type": "cover",
+      "title": "쓸 수 있는 쿠폰은 왜 맨 아래에 있을까",
+      "sub": "쇼핑몰A · 쿠폰 선택",
+      "image": "before.png"
+    },
+    {
+      "type": "problem",
+      "title": "무엇이 불편했나",
+      "body": "7장 중 쓸 수 있는 건 2장.\n그걸 알려면 조건을 하나하나 읽어야 했다.",
+      "image": "annotated.png"
+    },
+    {
+      "type": "why",
+      "title": "왜 불편할까",
+      "points": [
+        "① 앱이 아는 조건을 사용자가 직접 대조",
+        "② 가장 이득인 쿠폰이 맨 아래, 버튼에 가려짐"
+      ]
+    },
+    {
+      "type": "fix",
+      "title": "이렇게 바꿔보면",
+      "points": [
+        "① 주문금액 기준으로 나누기",
+        "② 최대 할인 자동 선택",
+        "③ 못 쓰는 쿠폰은 접고 이유 표시"
+      ],
+      "image": "after.png"
+    },
+    {
+      "type": "compare",
+      "title": "Before / After",
+      "image": "compare.png"
+    },
+    {
+      "type": "outro",
+      "title": "앱이 먼저 걸러주면, 사용자는 고르기만 하면 된다",
+      "sub": "#이상한나라의UIUX #UX #서비스기획"
+    }
+  ],
+  "hashtags": [
+    "이상한나라의UIUX",
+    "INAU",
+    "UX",
+    "UI",
+    "서비스기획",
+    "UX개선"
+  ]
+}

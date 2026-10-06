@@ -1,4 +1,4 @@
-name: 불편한 UI 제보
+name: INAU 제보
 description: 쓰다가 불편했던 화면을 캡처/녹화해서 올리면 분석·와이어프레임이 담긴 PR이 자동으로 만들어집니다.
 title: "[앱 이름] 한 줄 요약"
 labels: ["ux"]

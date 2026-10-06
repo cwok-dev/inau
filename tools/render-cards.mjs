@@ -43,7 +43,7 @@ function slideHtml(s, i, total, post, abs) {
   let theme = '';
   switch (s.type) {
     case 'cover':
-      body = `<div class="cp-kicker">불편한UI${post.issue ? ` #${esc(post.issue)}` : ''} · ${esc(post.app || '')}</div>
+      body = `<div class="cp-kicker">INAU${post.issue ? ` #${esc(post.issue)}` : ''} · ${esc(post.app || '')}</div>
         <div class="cp-title l">${esc(s.title)}</div>${s.sub ? `<div class="cp-sub">${esc(s.sub)}</div>` : ''}
         ${img(s.image, 'fit')}`;
       break;
@@ -67,6 +67,14 @@ function slideHtml(s, i, total, post, abs) {
       break;
     }
       break;
+    case 'vote': {
+      // 마지막 장: 어느 쪽이 나은지 댓글 투표 — options: [{ label, image }]
+      const opts = (s.options || []).map((o, k) => `<div class="cp-opt">${o.image && existsSync(join(abs, o.image)) ? `<img src="${pathToFileURL(join(abs, o.image)).href}">` : ''}<div class="cp-opt-label"><i class="n vote-n">${k + 1}</i><span>${esc(o.label)}</span></div></div>`).join('');
+      body = `<div class="cp-kicker">${esc(s.kicker || '여러분의 선택은?')}</div><div class="cp-title m">${esc(s.title)}</div>
+        <div class="cp-vote">${opts}</div>
+        <div class="cp-cta">댓글로 번호를 남겨주세요</div>`;
+      break;
+    }
     case 'outro':
       theme = 'dark';
       body = `<div class="cp-center"><div class="cp-kicker">한 줄 정리</div><div class="cp-title">${esc(s.title)}</div>
@@ -91,6 +99,12 @@ function caption(cards, post, dir) {
     lines.push('');
   }
   if (by('outro').title) lines.push(by('outro').title, '');
+  const vote = by('vote');
+  if (vote.title) {
+    lines.push(`🗳 ${vote.title}`);
+    (vote.options || []).forEach((o, k) => lines.push(`${k + 1}. ${o.label}`));
+    lines.push('댓글로 번호를 남겨주세요 👇', '');
+  }
   lines.push(`전체 글 👉 프로필 링크 (${BLOG}/posts/${dir}/)`, '');
   const tags = [...new Set((cards.hashtags || []).map((t) => t.replace(/^#/, '').replace(/\s+/g, '')))].slice(0, 30);
   lines.push(tags.map((t) => `#${t}`).join(' '));

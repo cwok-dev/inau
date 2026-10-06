@@ -104,7 +104,7 @@ jobs:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: |
           [ -n "$NTFY_TOPIC" ] || exit 0
-          curl -s -H "Title: 불편한UI 초안 도착 (#$N)" -H "Priority: 5" -H "Tags: art" \
+          curl -s -H "Title: INAU 초안 도착 (#$N)" -H "Priority: 5" -H "Tags: art" \
             -H "Click: ${{ steps.pr.outputs.url }}" \
             -H "Actions: view, PR 열기, ${{ steps.pr.outputs.url }}" \
             -d "$(node -p "require('./work/issue-$N/manifest.json').title")" "https://ntfy.sh/$NTFY_TOPIC" > /dev/null

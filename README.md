@@ -1,11 +1,11 @@
-# 불편한UI
+# 이상한나라의UIUX (INAU)
 
 이 UI, 이렇게 고쳐보면 어떨까?
 
 ## 흐름
 
 1. 폰에서 캡처 / 화면 녹화
-2. GitHub 앱 → 이 저장소 → Issues → New → **불편한 UI 제보** 템플릿 작성 + 첨부
+2. GitHub 앱 → 이 저장소 → Issues → New → **INAU 제보** 템플릿 작성 + 첨부
 3. Actions가 자동으로: 첨부 다운로드(영상은 프레임 추출) → Claude가 분석·수정안·와이어프레임 작성 → PR 생성 → 폰 알림
 4. PR 검토. 고칠 게 있으면 PR에 `@claude ...` 댓글
 5. Merge → GitHub Pages 블로그에 게시
